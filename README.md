@@ -53,8 +53,8 @@ The repository includes examples and explanations for a wide range of design pat
 To get started with exploring the design patterns, simply clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/design-patterns-python.git
-cd design-patterns-python
+git clone https://github.com/aiien61/Design_Pattern_Python.git
+cd Design_Pattern_Python
 ```
 
 Each design pattern is implemented in its own directory with clear and concise examples. You can run the examples to see the patterns in action and modify them to deepen your understanding.

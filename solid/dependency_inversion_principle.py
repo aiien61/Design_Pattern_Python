@@ -1,3 +1,8 @@
+"""Dependency Inversion Principle 依賴反轉原則: 
+1. high-level modules should not depend on low-level modules.
+2. use abstractions.
+"""
+
 from abc import abstractmethod
 from enum import Enum, auto
 

@@ -1,3 +1,6 @@
+"""Open-Closed Principle:
+Classese should be open for extension but closed for modification.
+"""
 from enum import Enum, auto
 from typing import List, Iterable
 

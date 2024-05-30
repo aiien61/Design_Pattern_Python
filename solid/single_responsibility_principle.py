@@ -1,5 +1,6 @@
 """Single Responsibility Principle 單一職責原則 (= Separation of Concerns 關注點分離): 
 A class should have only one reason to change, meaning it should have only one job or responsibility.
+Separation of Concerns means different classes handle different, independent tasks/problems.
 """
 
 class Journal:

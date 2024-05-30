@@ -1,3 +1,7 @@
+"""Liskov Substitution Principle:
+Able to substitute a base type for a subtype
+"""
+
 class Rectangle:
     def __init__(self, width: int, height: int):
         self._width = width

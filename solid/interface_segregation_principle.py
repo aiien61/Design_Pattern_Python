@@ -1,5 +1,20 @@
+"""Interface Segregation Principle 介面隔離原則: similar with single responsibility principle. 
+suggesting that a big interface can be divided into many small interfaces, in order for users to 
+focus on the interface that is most relevant to their business logic.
+
+Advantages: 
+1. decoupling classes, i.e. reducing the dependency between classes, to increase the flexibility and
+maintainability of the code.
+2. users can focus on the interfaces that are most relevant to their business logic, so don't need
+to be concerned about the big, whole interface that increase the complexity of the code.
+"""
+
 from abc import abstractmethod
 
+
+"""
+Case: Printer Machine
+"""
 class Machine:
     def print(self, document):
         raise NotImplementedError
@@ -79,3 +94,100 @@ class MultiFunctionMachine(MultiFunctionDevice):
 
     def scan(self, document):
         self.scanner.scan(document)
+
+
+"""
+Case: Figure Shape
+"""
+class Shape:
+    @abstractmethod
+    def draw(self):
+        pass
+
+    @abstractmethod
+    def resize(self, factor):
+        pass
+
+class Rectangle(Shape):
+    def draw(self):
+        print('Drawing a rectangle')
+    
+    def resize(self, factor):
+        print(f'Resizing the rectangle by {factor}')
+
+class Circle(Shape):
+    def draw(self):
+        print('Drawing a circle')
+
+    def resize(self, factor):
+        print(f'Resizing the circle by {factor}')
+
+
+"""
+Incorrect Case: Animal
+"""
+
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def eat(self):
+        print(f'{self.name} is eating')
+
+    def swim(self):
+        print(f'{self.name} is swimming')
+
+    def fly(self):
+        print(f'{self.name} is flying')
+
+class Fish(Animal):
+    def fly(self):
+        print('Error: Fishes cannot fly')
+
+class Bird(Animal):
+    def swim(self):
+        print('Error: Birds cannot swim')
+
+
+"""
+Fixed Case: Animal
+"""
+class Animal:
+    def __init__(self, name):
+        self.name = name
+
+    def eat(self):
+        print(f'{self.name} is eating')
+
+class Swimmer:
+    def swim(self):
+        pass
+
+class Flyer:
+    def fly(self):
+        pass
+
+class Fish(Animal, Swimmer):
+    def swim(self):
+        print(f'{self.name} is swimming')
+
+class Bird(Animal, Flyer):
+    def fly(self):
+        print(f'{self.name} is flying')
+
+
+if __name__ == '__main__':
+    rectangle = Rectangle()
+    circle = Circle()
+    
+    rectangle.draw()
+    rectangle.resize(2)
+
+    circle.draw()
+    circle.resize(1.5)
+
+    bird = Bird('Parrot')
+    bird.fly()
+
+    fish = Fish('Nemo')
+    fish.swim()

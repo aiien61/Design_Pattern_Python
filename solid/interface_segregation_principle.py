@@ -1,4 +1,4 @@
-"""Interface Segregation Principle 介面隔離原則: similar with single responsibility principle. 
+"""Interface Segregation Principle 介面隔離原則: similar to single responsibility principle. 
 1. Don't put too much into an interface; split into separate interfaces.
 2. YAGNI
 3. Suggesting that a big interface can be divided into many small interfaces, in order for users to 

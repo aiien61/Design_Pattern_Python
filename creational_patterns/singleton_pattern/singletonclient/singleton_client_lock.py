@@ -9,10 +9,9 @@ class SingletonClient:
 
     @staticmethod
     def get_instance() -> 'SingletonClient':
-        if SingletonClient.__unique_instance is None:
-            with SingletonClient.__lock:
-                if SingletonClient.__unique_instance is None:
-                    SingletonClient.__unique_instance = SingletonClient()
+        with SingletonClient.__lock:
+            if SingletonClient.__unique_instance is None:
+                SingletonClient.__unique_instance = SingletonClient()
         return SingletonClient.__unique_instance
     
     def place_order(self, amount: int) -> None:

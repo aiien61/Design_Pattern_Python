@@ -1,0 +1,3 @@
+Singleton design pattern: allow only one instance to be created from a class.
+
+Cases: access to database, shared variable among users

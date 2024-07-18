@@ -1,3 +1,17 @@
-Singleton design pattern: allow only one instance to be created from a class.
+Singleton design pattern: 
+A component which is instantiated only once
 
-Cases: access to database, shared variable among users
+Reasons to use singleton design pattern
+
+1. For some components it only makes sense to have one in the system: 
+- database repository
+- object factory
+
+2. The initialiser call is expensive
+- only do it once
+- provide everyone with the same instance
+
+3. Want to prevent anyone creating additional copies
+
+4. Need to take care of lazy instantiation
+

@@ -2,3 +2,5 @@
 Tutorial/
 data/
 Exercises/
+__pycache__/
+*.pyc

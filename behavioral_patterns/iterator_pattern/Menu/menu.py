@@ -1,0 +1,8 @@
+from typing import Iterator
+from abc import ABC, abstractmethod
+from menu_item import MenuItem
+
+class Menu(ABC):
+    @abstractmethod
+    def create_iterator(self) -> Iterator[MenuItem]:
+        raise NotImplementedError

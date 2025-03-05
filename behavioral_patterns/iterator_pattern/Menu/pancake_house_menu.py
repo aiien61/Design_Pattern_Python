@@ -53,4 +53,4 @@ class PancakeHouseMenu(Menu):
         return self.menu_items.values()
     
     def create_iterator(self) -> Iterator[MenuItem]:
-        return iter(self.menu_items)
+        return iter(self.menu_items.values())

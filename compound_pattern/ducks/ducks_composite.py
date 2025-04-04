@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from rich import print
-from typing import List
+from typing import List, Iterator
 
 
 class Quackable(ABC):
@@ -107,7 +107,7 @@ class QuackCounter(Quackable):
 
     def __repr__(self) -> str:
         return repr(self.duck)
-    
+
 
 class AbstractDuckFactory(ABC):
     @abstractmethod
@@ -130,28 +130,54 @@ class AbstractDuckFactory(ABC):
 class CountingDuckFactory(AbstractDuckFactory):
     def create_mallard_duck(self) -> Quackable:
         return QuackCounter(MallardDuck())
-    
+
     def create_redhead_duck(self) -> Quackable:
         return QuackCounter(RedheadDuck())
-    
+
     def create_duck_call(self) -> Quackable:
         return QuackCounter(DuckCall())
-    
+
     def create_rubber_duck(self) -> Quackable:
         return QuackCounter(RubberDuck())
+
 
 class DuckFactory(AbstractDuckFactory):
     def create_mallard_duck(self) -> Quackable:
         return MallardDuck()
-    
+
     def create_redhead_duck(self) -> Quackable:
         return RedheadDuck()
-    
+
     def create_rubber_duck(self) -> Quackable:
         return DuckCall()
-    
+
     def create_duck_call(self) -> Quackable:
         return RubberDuck()
+    
+class Flock(Quackable):
+    quackers: List[Quackable]
+
+    def __init__(self):
+        self.quackers = []
+
+    def add(self, quacker: Quackable) -> None:
+        self.quackers.append(quacker)
+        return None
+
+    def quack(self) -> None:
+        iterator: Iterator[Quackable] = iter(self.quackers)
+        quacker: Quackable = next(iterator, None)
+        while quacker is not None:
+            quacker.quack()
+            quacker: Quackable = next(iterator, None)
+        return None
+    
+    def __str__(self) -> str:
+        return "Flock of Quackers"
+    
+    def __repr__(self) -> str:
+        return str(self)
+
 
 class DuckSimulator:
     def simulate(self, duck_factory: AbstractDuckFactory) -> None:
@@ -161,13 +187,35 @@ class DuckSimulator:
         rubber_duck: Quackable = duck_factory.create_rubber_duck()
         goose_duck: Quackable = GooseAdapter(Goose())
 
-        print("\nDuck Simulator: With Abstract Factory")
+        print("\nDuck Simulator: With Composite - Flocks")
 
-        self._simulate(mallard_duck)
-        self._simulate(redhead_duck)
-        self._simulate(duck_call)
-        self._simulate(rubber_duck)
-        self._simulate(goose_duck)
+        flock_of_ducks: Flock = Flock()
+
+        flock_of_ducks.add(redhead_duck)
+        flock_of_ducks.add(duck_call)
+        flock_of_ducks.add(rubber_duck)
+
+        flock_of_mallard_ducks: Flock = Flock()
+
+        mallard1: Quackable = duck_factory.create_mallard_duck()
+        mallard2: Quackable = duck_factory.create_mallard_duck()
+        mallard3: Quackable = duck_factory.create_mallard_duck()
+        mallard4: Quackable = duck_factory.create_mallard_duck()
+        mallard5: Quackable = duck_factory.create_mallard_duck()
+
+        flock_of_mallard_ducks.add(mallard1)
+        flock_of_mallard_ducks.add(mallard2)
+        flock_of_mallard_ducks.add(mallard3)
+        flock_of_mallard_ducks.add(mallard4)
+        flock_of_mallard_ducks.add(mallard5)
+
+        flock_of_ducks.add(flock_of_mallard_ducks)
+
+        print("\nDuck Simulator: Whole Flock Simulation")
+        self._simulate(flock_of_ducks)
+
+        print("\nDuck Simulator: Mallard Flock Simulation")
+        self._simulate(flock_of_mallard_ducks)
 
         print(f"The ducks quacked {QuackCounter.get_quacks()} times")
 

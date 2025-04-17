@@ -1,47 +1,41 @@
-from abc import ABC, abstractmethod
+import abc
 
+# Implementor
+class Color(abc.ABC):
+    @abc.abstractmethod
+    def fill(self): pass
 
-class Renderer:
-    @abstractmethod
-    def render_circle(self):
-        raise NotImplementedError
+class Red(Color):
+    def fill(self) -> str:
+        return "Red"
     
-class VectorRenderer(Renderer):
-    def render_circle(self, radius: int):
-        print(f"Drawing a circle of radius {radius}")
-
-
-class RasterRenderer(Renderer):
-    def render_circle(self, radius: int):
-        print(f"Drawing pixels for a circle of radius {radius}")
-
-class Shape(ABC):
-    def __init__(self, renderer: Renderer):
-        self.renderer = renderer
-
-    @abstractmethod
-    def draw(self):
-        raise NotImplementedError
+class Blue(Color):
+    def fill(self) -> str:
+        return "Blue"
     
-    @abstractmethod
-    def resize(self):
-        raise NotImplementedError
+# Abstraction
+class Shape:
+    def __init__(self, color: Color):
+        self.color = color
     
+    def draw(self): pass
+
+# Refined Abstraction
 class Circle(Shape):
-    def __init__(self, renderer: Renderer, radius: int):
-        super().__init__(renderer)
-        self.radius = radius
-
     def draw(self):
-        self.renderer.render_circle(self.radius)
-
-    def resize(self, factor: int):
-        self.radius *= factor
+        return f"Draw a circle filled with {self.color.fill()}"
+    
+class Square(Shape):
+    def draw(self):
+        return f"Draw a square filled with {self.color.fill()}"
 
 if __name__ == "__main__":
-    raster = RasterRenderer()
-    vector = VectorRenderer()
-    circle = Circle(vector, 5)
-    circle.draw()
-    circle.resize(2)
-    circle.draw()
+    red = Red()
+    blue = Blue()
+
+
+    circle = Circle(red)
+    square = Square(blue)
+
+    print(circle.draw())
+    print(square.draw())

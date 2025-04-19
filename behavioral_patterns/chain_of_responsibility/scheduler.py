@@ -1,3 +1,10 @@
+"""
+規則名稱                  | 適用條件
+FIFO（先進先出）           | 適用於無急單、小批量生產
+LPT（最長處理時間優先）     | 適用於大批量、需優化設備利用率
+EDD（最早到期日優先）       | 適用於交期壓力大的狀況
+"""
+
 class SchedulingRule:
     def __init__(self):
         self.next = None

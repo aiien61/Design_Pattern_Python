@@ -1,3 +1,11 @@
+"""
+A               | B
+產品             | 手機
+排程系統         | ERP
+排程結果         | 
+✅ 輸出欄位在這裡 | ← B5
+"""
+
 import xlwings as xw
 from abc import ABC, abstractmethod
 
